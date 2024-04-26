@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kotova.CommonClasses", "Kotova.CommonClasses\Kotova.CommonClasses.csproj", "{15D90A36-49DB-4A46-9F5C-B7FEFECA23BD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15D90A36-49DB-4A46-9F5C-B7FEFECA23BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15D90A36-49DB-4A46-9F5C-B7FEFECA23BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15D90A36-49DB-4A46-9F5C-B7FEFECA23BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15D90A36-49DB-4A46-9F5C-B7FEFECA23BD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D3CC3B6B-53E1-47DA-A89E-35BC21CE81D2}
+	EndGlobalSection
+EndGlobal
