@@ -243,6 +243,7 @@ namespace Kotova.CommonClasses
         public DateTime birth_date { get; set; }
         public Byte? gender { get; set; }
         public bool is_driver { get; set; }
+        public bool? is_working_in_department { get; set; }
 
     }
 
