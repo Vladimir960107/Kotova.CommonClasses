@@ -232,6 +232,17 @@ namespace Kotova.CommonClasses
         public DateTime BirthDate { get; set; }
     }
 
+    // Should it be here in terms of safety? TODO: Check it - if it safe.
+    // ANd create safechecker(Обработка пустых/нулевых значений for this class)
+    public class TelpEmployeeDto
+    {
+        public string FullName { get; set; }
+        public string DepartmentName { get; set; }
+        public string PositionName { get; set; }
+        public string Email { get; set; }
+        public string PersonnelNumber { get; set; }
+    }
+
     public class Employee
     {
         [Key]
@@ -256,6 +267,7 @@ namespace Kotova.CommonClasses
         public string department_DB_name { get; set; }
         public bool is_chief_online { get; set; }
         public DateTime? last_online_set_UTC { get; set; }
+        public byte code_number_TELP_DB { get; set; }
     }
     public class Dept
     {
