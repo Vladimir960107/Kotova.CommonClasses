@@ -83,6 +83,16 @@ namespace Kotova.CommonClasses
         }
     }
 
+    public class DepartmentDto
+    {
+        public int department_id { get; set; }
+        public string department_name { get; set; }
+
+        // Property aliases for the Dictionary conversion
+        public int Id => department_id;
+        public string Name => department_name;
+    }
+
     public class DynamicEmployeeInstruction
     {
         public int instruction_id { get; set; }
