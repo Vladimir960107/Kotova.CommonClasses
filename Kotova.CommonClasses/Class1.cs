@@ -41,10 +41,15 @@ namespace Kotova.CommonClasses
     {
         [Key]
         public int instruction_id { get; set; }
+        [Required]
         public DateTime begin_date { get; set; }
+        [Required]
         public DateTime end_date { get; set; }
+        [Required]
         public string? path_to_instruction { get; set; }
+        [Required]
         public string cause_of_instruction { get; set; }
+        [Required]
         public Byte type_of_instruction { get; set; }
         public bool is_passed_by_everyone { get; set; }
         public bool is_assigned_to_people { get; set; }
@@ -70,18 +75,17 @@ namespace Kotova.CommonClasses
     }
     public class FullCustomInstruction
     {
-        public Instruction _instruction { get; set; }
-        public List<string?> _paths { get; set; }
-        public FullCustomInstruction(Instruction instruction, List<string?> paths)
-        {
-            _instruction = instruction;
-            _paths = paths;
-        }
-        public FullCustomInstruction()
-        {
+        public Instruction Instruction { get; set; }
+        public List<string> Paths { get; set; }
 
+        public FullCustomInstruction(Instruction instruction, List<string> paths)
+        {
+            Instruction = instruction;
+            Paths = paths;
         }
     }
+
+
 
     public class DepartmentDto
     {
@@ -234,13 +238,13 @@ namespace Kotova.CommonClasses
         public List<Dictionary<string, object>> Result1 { get; set; }
         public List<Dictionary<string, object>> Result2 { get; set; }
     }
-    public class InstructionDto
+    /*public class InstructionDto
     {
         public int InstructionId { get; set; }
         public string TenDigitNumber { get; set; }
         public string Name { get; set; }
         public DateTime BirthDate { get; set; }
-    }
+    }*/
 
     // Should it be here in terms of safety? TODO: Check it - if it safe.
     // ANd create safechecker(Обработка пустых/нулевых значений for this class)
