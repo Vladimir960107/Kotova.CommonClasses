@@ -194,7 +194,7 @@ namespace Kotova.CommonClasses
         [NotMapped]
         public string? FileNamesOfInstructionInOneString { get; set; }
 
-        InstructionExportInstance() { }
+        public InstructionExportInstance() { }
     }
 
     public class CustomTask
@@ -317,13 +317,16 @@ namespace Kotova.CommonClasses
         [Required(ErrorMessage = "Instruction name is required.")]
         public string? InstructionCause { get; set; }
 
+        public List<int>? NormativeInstructionNameIds { get; set; }
+
         public InstructionPackage() { }
-        public InstructionPackage(List<Tuple<string,string>>? namesAndBirthDates, string instruction)
+
+        public InstructionPackage(List<Tuple<string, string>>? namesAndBirthDates, string instruction, List<int>? normativeInstructionNameIds = null)
         {
             NamesAndBirthDates = namesAndBirthDates;
             InstructionCause = instruction;
+            NormativeInstructionNameIds = normativeInstructionNameIds;
         }
-
     }
 
     public class UnplannedInstructionPackage
