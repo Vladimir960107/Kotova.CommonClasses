@@ -87,6 +87,8 @@ namespace Kotova.CommonClasses
 
 
 
+
+
     public class DepartmentDto
     {
         public int department_id { get; set; }
