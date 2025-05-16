@@ -373,6 +373,27 @@ namespace Kotova.CommonClasses
         public byte TypeOfInstruction { get; set; }
     }
 
+    /// <summary>
+    /// Data transfer object for updating an existing instruction
+    /// </summary>
+    public class InstructionUpdateDto
+    {
+        /// <summary>
+        /// The cause or reason for this instruction
+        /// </summary>
+        public string CauseOfInstruction { get; set; }
+
+        /// <summary>
+        /// The end date of the instruction - when it expires
+        /// </summary>
+        public DateTime EndDate { get; set; }
+
+        /// <summary>
+        /// The type of instruction (0=Introductory, 1=Unplanned, 2=Primary, etc.)
+        /// </summary>
+        public byte TypeOfInstruction { get; set; }
+    }
+
     #region Encryption
     public class Encryption_Kotova
     {
