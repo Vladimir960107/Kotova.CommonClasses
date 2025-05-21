@@ -87,6 +87,71 @@ namespace Kotova.CommonClasses
 
 
 
+    /// <summary>
+    /// Data transfer object for an instruction with employee status information for chiefs
+    /// </summary>
+    public class InstructionForChiefDto
+    {
+        public int InstructionId { get; set; }
+        public DateTime BeginDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string CauseOfInstruction { get; set; }
+        public string TypeOfInstruction { get; set; }
+        public bool IsPassedByEveryone { get; set; }
+        public double PassedPercentage { get; set; }
+        public List<PersonStatusDto> Persons { get; set; } = new List<PersonStatusDto>();
+
+        // Helper property to get total count of people
+        public int TotalPeopleCount => Persons?.Count ?? 0;
+
+        // Helper property to get count of people who have passed
+        public int PassedPeopleCount => Persons?.Count(p => p.Passed) ?? 0;
+
+        // Helper property to get completion percentage
+        public int CompletionPercentage => TotalPeopleCount > 0
+            ? (int)((PassedPeopleCount / (double)TotalPeopleCount) * 100)
+            : 0;
+    }
+
+
+    public class InstructionReportItem
+    {
+        public int InstructionId { get; set; }
+        public string CauseOfInstruction { get; set; }
+        public DateTime BeginDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public byte TypeOfInstruction { get; set; }
+        public string TypeName { get; set; }
+        public bool IsAssignedToPeople { get; set; }
+        public bool IsPassedByEveryone { get; set; }
+        public List<EmployeeComplianceItem> EmployeeData { get; set; } = new List<EmployeeComplianceItem>();
+    }
+
+    public class EmployeeComplianceItem
+    {
+        public string FullName { get; set; }
+        public string Position { get; set; }
+        public DateTime BirthDate { get; set; }
+        public bool HasPassed { get; set; }
+        public DateTime? DatePassed { get; set; }
+        public DateTime? DateAssigned { get; set; }
+        public string AssignedBy { get; set; }
+        public List<string> NormativeDocuments { get; set; } = new List<string>();
+    }
+
+    public class PersonStatusDto
+    {
+        public string PersonnelNumber { get; set; }
+        public string PersonName { get; set; }
+        public bool Passed { get; set; }
+        public DateTime? DatePassed { get; set; }
+
+        public override string ToString()
+        {
+            return PersonName;
+        }
+    }
+
 
 
     public class DepartmentDto
