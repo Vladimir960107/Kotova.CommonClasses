@@ -166,6 +166,60 @@ namespace Kotova.CommonClasses
         }
     }
 
+    // Add these DTOs to the bottom of your controller or create a separate DTOs file
+
+    public class DepartmentWithChiefsDto
+    {
+        public int DepartmentId { get; set; }
+        public string DepartmentName { get; set; }
+        public List<ChiefDto> Chiefs { get; set; } = new List<ChiefDto>();
+    }
+
+    public class ChiefDto
+    {
+        public int UserId { get; set; }
+        public int PersonnelId { get; set; }
+        public string Role { get; set; }
+        public string FullName { get; set; }
+        public string JobPosition { get; set; }
+    }
+
+    public class UnplannedInstructionForChiefsPackage
+    {
+        [Required]
+        public InstructionCreateDto Instruction { get; set; }
+
+        [Required]
+        [MinLength(1, ErrorMessage = "At least one chief must be selected")]
+        public List<int> SelectedChiefIds { get; set; }
+
+        public List<string> FilePaths { get; set; }
+
+        public List<int> NormativeInstructionIds { get; set; }
+    }
+
+    public class UnplannedInstructionStatusDto
+    {
+        public int InstructionId { get; set; }
+        public string CauseOfInstruction { get; set; }
+        public DateTime BeginDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string TypeName { get; set; }
+        public int TotalAssigned { get; set; }
+        public int TotalPassed { get; set; }
+        public List<ChiefStatusDto> ChiefStatuses { get; set; } = new List<ChiefStatusDto>();
+    }
+
+    public class ChiefStatusDto
+    {
+        public string ChiefName { get; set; }
+        public string DepartmentName { get; set; }
+        public string JobPosition { get; set; }
+        public bool IsPassed { get; set; }
+        public DateTime? DatePassed { get; set; }
+        public DateTime? DateAssigned { get; set; }
+    }
+
 
 
     public class DepartmentDto
