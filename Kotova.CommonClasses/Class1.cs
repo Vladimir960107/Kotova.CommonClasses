@@ -99,6 +99,20 @@ namespace Kotova.CommonClasses
         public string Url { get; set; }
     }
 
+    public class UnplannedInstructionForDepartmentsPackage
+    {
+        [Required]
+        public InstructionCreateDto Instruction { get; set; }
+
+        [Required]
+        [MinLength(1, ErrorMessage = "At least one department must be selected")]
+        public List<int> SelectedDepartmentIds { get; set; }
+
+        public List<string> FilePaths { get; set; }
+
+        public List<int> NormativeInstructionIds { get; set; }
+    }
+
 
 
     /// <summary>
