@@ -97,20 +97,118 @@ namespace Kotova.CommonClasses
         public int Id { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
+        public bool IsUnplannedInstruction { get; set; } // Add this property
     }
 
-    public class UnplannedInstructionForDepartmentsPackage
+
+
+
+
+
+
+    public class ChiefInfo
+    {
+        public int UserId { get; set; }
+        public string FullName { get; set; }
+        public string Role { get; set; }
+        public string JobPosition { get; set; }
+    }
+
+    // Keep the existing models for backwards compatibility
+    public class UnplannedInstructionForChiefsPackage
     {
         [Required]
         public InstructionCreateDto Instruction { get; set; }
 
         [Required]
-        [MinLength(1, ErrorMessage = "At least one department must be selected")]
-        public List<int> SelectedDepartmentIds { get; set; }
+        [MinLength(1, ErrorMessage = "At least one chief must be selected")]
+        public List<int> SelectedChiefIds { get; set; }
 
         public List<string> FilePaths { get; set; }
 
         public List<int> NormativeInstructionIds { get; set; }
+
+        // Add this property for normative base text processing
+        public string NormativeBaseText { get; set; }
+
+        // Add this property to indicate if created normative instructions should be marked as unplanned
+        public bool MarkNormativeAsUnplanned { get; set; } = true;
+    }
+
+    public class NormativeInstructionFilterDto
+    {
+        public bool? IsUnplannedInstruction { get; set; }
+        public string SearchTerm { get; set; }
+        public DateTime? CreatedAfter { get; set; }
+        public DateTime? CreatedBefore { get; set; }
+    }
+
+    public class InstructionCreateDto
+    {
+        [Required]
+        [StringLength(500)]
+        public string CauseOfInstruction { get; set; }
+
+        [Required]
+        public DateTime EndDate { get; set; }
+
+        [Required]
+        [Range(0, 5)]
+        public byte TypeOfInstruction { get; set; }
+    }
+
+
+    public class NormativeInstructionCreateDto
+    {
+        [Required]
+        [StringLength(255)]
+        public string Name { get; set; }
+
+        public string Url { get; set; }
+
+        public bool IsUnplannedInstruction { get; set; } = false;
+    }
+
+    public class NormativeInstructionUpdateDto
+    {
+        [Required]
+        [StringLength(255)]
+        public string Name { get; set; }
+
+        public string Url { get; set; }
+
+        public bool IsUnplannedInstruction { get; set; } = false;
+    }
+
+    public class NormativeInstructionDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Url { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public bool IsUnplannedInstruction { get; set; } // Add this property
+    }
+
+    public class UnplannedInstructionStatusDto
+    {
+        public int InstructionId { get; set; }
+        public string CauseOfInstruction { get; set; }
+        public DateTime BeginDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string TypeName { get; set; }
+        public int TotalAssigned { get; set; }
+        public int TotalPassed { get; set; }
+        public List<ChiefStatusDto> ChiefStatuses { get; set; } = new List<ChiefStatusDto>();
+    }
+
+    public class ChiefStatusDto
+    {
+        public string ChiefName { get; set; }
+        public string DepartmentName { get; set; }
+        public string JobPosition { get; set; }
+        public bool IsPassed { get; set; }
+        public DateTime? DatePassed { get; set; }
+        public DateTime? DateAssigned { get; set; }
     }
 
 
@@ -197,43 +295,6 @@ namespace Kotova.CommonClasses
         public string FullName { get; set; }
         public string JobPosition { get; set; }
     }
-
-    public class UnplannedInstructionForChiefsPackage
-    {
-        [Required]
-        public InstructionCreateDto Instruction { get; set; }
-
-        [Required]
-        [MinLength(1, ErrorMessage = "At least one chief must be selected")]
-        public List<int> SelectedChiefIds { get; set; }
-
-        public List<string> FilePaths { get; set; }
-
-        public List<int> NormativeInstructionIds { get; set; }
-    }
-
-    public class UnplannedInstructionStatusDto
-    {
-        public int InstructionId { get; set; }
-        public string CauseOfInstruction { get; set; }
-        public DateTime BeginDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string TypeName { get; set; }
-        public int TotalAssigned { get; set; }
-        public int TotalPassed { get; set; }
-        public List<ChiefStatusDto> ChiefStatuses { get; set; } = new List<ChiefStatusDto>();
-    }
-
-    public class ChiefStatusDto
-    {
-        public string ChiefName { get; set; }
-        public string DepartmentName { get; set; }
-        public string JobPosition { get; set; }
-        public bool IsPassed { get; set; }
-        public DateTime? DatePassed { get; set; }
-        public DateTime? DateAssigned { get; set; }
-    }
-
 
 
     public class DepartmentDto
@@ -494,31 +555,26 @@ namespace Kotova.CommonClasses
         }
     }
 
-    /// <summary>
-    /// Data transfer object for creating a new instruction
-    /// </summary>
-    public class InstructionCreateDto
+    public class UnplannedInstructionForDepartmentsPackage
     {
-        /// <summary>
-        /// The cause or reason for this instruction
-        /// </summary>
         [Required]
-        [StringLength(500)]
-        public string CauseOfInstruction { get; set; }
+        public InstructionCreateDto Instruction { get; set; }
 
-        /// <summary>
-        /// The end date of the instruction - when it expires
-        /// </summary>
         [Required]
-        public DateTime EndDate { get; set; }
+        [MinLength(1, ErrorMessage = "At least one department must be selected")]
+        public List<int> SelectedDepartmentIds { get; set; }
 
-        /// <summary>
-        /// The type of instruction (0=Introductory, 1=Unplanned, 2=Primary, etc.)
-        /// </summary>
-        [Required]
-        [Range(0, 5)]
-        public byte TypeOfInstruction { get; set; }
+        public List<string> FilePaths { get; set; }
+
+        public List<int> NormativeInstructionIds { get; set; }
+
+        // Add this property for the processed normative base text
+        public string NormativeBaseText { get; set; }
+
+        // Add this property to indicate if created normative instructions should be marked as unplanned
+        public bool MarkNormativeAsUnplanned { get; set; } = true;
     }
+
 
     /// <summary>
     /// Data transfer object for updating an existing instruction
