@@ -53,6 +53,7 @@ namespace Kotova.CommonClasses
         public Byte type_of_instruction { get; set; }
         public bool is_passed_by_everyone { get; set; }
         public bool is_assigned_to_people { get; set; }
+        public bool is_passed_by_chief_unplanned_instr { get; set; }
         [JsonIgnore]
         public virtual ICollection<FilePath> FilePaths { get; set; } = new List<FilePath>();
 
