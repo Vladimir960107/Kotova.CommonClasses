@@ -102,7 +102,32 @@ namespace Kotova.CommonClasses
     }
 
 
+    public class UnplannedInstructionAssignmentPackage
+    {
+        [Required]
+        public string InstructionCause { get; set; }
 
+        [Required]
+        public int InstructionId { get; set; }
+
+        [Required]
+        [MinLength(1, ErrorMessage = "At least one employee must be selected")]
+        public List<SelectedEmployeeDto> SelectedEmployees { get; set; }
+
+        public List<int> NormativeInstructionNameIds { get; set; } = new List<int>();
+    }
+
+    public class SelectedEmployeeDto
+    {
+        [Required]
+        public string FullName { get; set; }
+
+        [Required]
+        public string BirthDate { get; set; }
+
+        [Required]
+        public string Role { get; set; }
+    }
 
 
 
