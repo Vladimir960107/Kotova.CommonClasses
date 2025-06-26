@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using BCrypt.Net;
+using Newtonsoft.Json;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using BCrypt.Net;
+using System.Runtime.CompilerServices;
 
 namespace Kotova.CommonClasses
 {
@@ -237,6 +239,258 @@ namespace Kotova.CommonClasses
         public DateTime? DateAssigned { get; set; }
     }
 
+
+
+    // Add these new DTOs to the existing CommonClasses/Class1.cs file
+    // These should be added at the end of the file, before the closing namespace brace
+
+    #region Coordinator Window DTOs
+
+    /// <summary>
+    /// Data transfer object for initial instruction people in coordinator interface
+    /// </summary>
+    public class InitialInstructionPersonDto
+    {
+        public string DisplayName { get; set; } = string.Empty;
+        public string Department { get; set; } = string.Empty;
+        public string BirthDate { get; set; } = string.Empty;
+        public string Profession { get; set; } = string.Empty;
+    }
+
+    /// <summary>
+    /// Data transfer object for TELP employees (enhanced version of existing TelpEmployeeDto)
+    /// </summary>
+    public class TelpEmployeeDtoEnhanced
+    {
+        public string FullName { get; set; } = string.Empty;
+        public string Department { get; set; } = string.Empty;
+        public string Position { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string PersonnelNumber { get; set; } = string.Empty;
+    }
+
+    /// <summary>
+    /// Data transfer object for new employee creation with property change notifications
+    /// </summary>
+    public class NewEmployeeDto : INotifyPropertyChanged
+    {
+        private string _fullName = string.Empty;
+        private string _position = string.Empty;
+        private string _personnelNumber = string.Empty;
+        private string _workplaceNumber = string.Empty;
+        private DateTime? _birthDate;
+        private string _department = string.Empty;
+        private string _login = string.Empty;
+        private string _password = string.Empty;
+        private string _role = string.Empty;
+        private bool _addInitialInstruction;
+
+        public string FullName
+        {
+            get => _fullName;
+            set { _fullName = value; OnPropertyChanged(); }
+        }
+
+        public string Position
+        {
+            get => _position;
+            set { _position = value; OnPropertyChanged(); }
+        }
+
+        public string PersonnelNumber
+        {
+            get => _personnelNumber;
+            set { _personnelNumber = value; OnPropertyChanged(); }
+        }
+
+        public string WorkplaceNumber
+        {
+            get => _workplaceNumber;
+            set { _workplaceNumber = value; OnPropertyChanged(); }
+        }
+
+        public DateTime? BirthDate
+        {
+            get => _birthDate;
+            set { _birthDate = value; OnPropertyChanged(); }
+        }
+
+        public string Department
+        {
+            get => _department;
+            set { _department = value; OnPropertyChanged(); }
+        }
+
+        public string Login
+        {
+            get => _login;
+            set { _login = value; OnPropertyChanged(); }
+        }
+
+        public string Password
+        {
+            get => _password;
+            set { _password = value; OnPropertyChanged(); }
+        }
+
+        public string Role
+        {
+            get => _role;
+            set { _role = value; OnPropertyChanged(); }
+        }
+
+        public bool AddInitialInstruction
+        {
+            get => _addInitialInstruction;
+            set { _addInitialInstruction = value; OnPropertyChanged(); }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    /// <summary>
+    /// Data transfer object for user instructions in coordinator interface
+    /// </summary>
+    public class UserInstructionDto
+    {
+        public string CauseOfInstruction { get; set; } = string.Empty;
+        public List<InstructionFileDto> Files { get; set; } = new List<InstructionFileDto>();
+    }
+
+    /// <summary>
+    /// Data transfer object for instruction files
+    /// </summary>
+    public class InstructionFileDto
+    {
+        public string FileName { get; set; } = string.Empty;
+        public bool IsChecked { get; set; }
+    }
+
+    /// <summary>
+    /// Enhanced normative instruction DTO with property change notifications for UI binding
+    /// </summary>
+    public class NormativeInstructionDtoWithNotification : INotifyPropertyChanged
+    {
+        private int _id;
+        private string _name = string.Empty;
+        private string _url = string.Empty;
+        private DateTime _createdAt;
+        private bool _isUnplannedInstruction;
+
+        public int Id
+        {
+            get => _id;
+            set { _id = value; OnPropertyChanged(); }
+        }
+
+        public string Name
+        {
+            get => _name;
+            set { _name = value; OnPropertyChanged(); }
+        }
+
+        public string Url
+        {
+            get => _url;
+            set { _url = value; OnPropertyChanged(); }
+        }
+
+        public DateTime CreatedAt
+        {
+            get => _createdAt;
+            set { _createdAt = value; OnPropertyChanged(); }
+        }
+
+        public bool IsUnplannedInstruction
+        {
+            get => _isUnplannedInstruction;
+            set { _isUnplannedInstruction = value; OnPropertyChanged(); }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// Convert from existing NormativeInstructionDto to the notification version
+        /// </summary>
+        public static NormativeInstructionDtoWithNotification FromNormativeInstructionDto(NormativeInstructionDto dto)
+        {
+            return new NormativeInstructionDtoWithNotification
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                Url = dto.Url,
+                CreatedAt = dto.CreatedAt,
+                IsUnplannedInstruction = dto.IsUnplannedInstruction
+            };
+        }
+
+        /// <summary>
+        /// Convert to existing NormativeInstructionDto
+        /// </summary>
+        public NormativeInstructionDto ToNormativeInstructionDto()
+        {
+            return new NormativeInstructionDto
+            {
+                Id = this.Id,
+                Name = this.Name,
+                Url = this.Url,
+                CreatedAt = this.CreatedAt,
+                IsUnplannedInstruction = this.IsUnplannedInstruction
+            };
+        }
+    }
+
+    /// <summary>
+    /// Data transfer object for coordinator reports
+    /// </summary>
+    public class CoordinatorReportDto
+    {
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public string? InstructionType { get; set; }
+        public string? Department { get; set; }
+        public string? AdditionalFilter { get; set; }
+    }
+
+    /// <summary>
+    /// Data transfer object for coordinator dashboard statistics
+    /// </summary>
+    public class CoordinatorDashboardDto
+    {
+        public int TotalEmployees { get; set; }
+        public int PendingInitialInstructions { get; set; }
+        public int CompletedInstructionsThisMonth { get; set; }
+        public int OverdueInstructions { get; set; }
+        public List<DepartmentStatsDto> DepartmentStats { get; set; } = new List<DepartmentStatsDto>();
+    }
+
+    /// <summary>
+    /// Data transfer object for department statistics
+    /// </summary>
+    public class DepartmentStatsDto
+    {
+        public string DepartmentName { get; set; } = string.Empty;
+        public int TotalEmployees { get; set; }
+        public int CompletedInstructions { get; set; }
+        public int PendingInstructions { get; set; }
+        public double CompletionPercentage { get; set; }
+    }
+
+    #endregion
+
+    // Add the necessary using statements at the top of the Class1.cs file:
+    // using System.ComponentModel;
+    // using System.Runtime.CompilerServices;
 
 
     /// <summary>
