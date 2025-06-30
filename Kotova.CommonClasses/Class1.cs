@@ -131,7 +131,30 @@ namespace Kotova.CommonClasses
         public string Role { get; set; }
     }
 
+    public class EmployeeComparisonDto
+    {
+        public string PersonnelNumber { get; set; }
+        public string FullName { get; set; }
+        public string DepartmentName { get; set; }
+        public string PositionName { get; set; }
+        public string Email { get; set; }
+        public bool HasDifferences { get; set; }
+        public List<string> DifferenceFields { get; set; } = new List<string>();
 
+        // Data from LynksDataBase
+        public TelpEmployeeDto LynksData { get; set; }
+
+        // Data from Трансэлектропроект DataBase
+        public TransElectroEmployeeDto TransElectroData { get; set; }
+    }
+    public class TransElectroEmployeeDto
+    {
+        public string FullName { get; set; }
+        public string DepartmentName { get; set; }
+        public string PositionName { get; set; }
+        public string Email { get; set; }
+        public string PersonnelNumber { get; set; }
+    }
 
 
     public class ChiefInfo
