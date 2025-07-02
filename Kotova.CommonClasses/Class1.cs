@@ -281,18 +281,6 @@ namespace Kotova.CommonClasses
     }
 
     /// <summary>
-    /// Data transfer object for TELP employees (enhanced version of existing TelpEmployeeDto)
-    /// </summary>
-    public class TelpEmployeeDtoEnhanced
-    {
-        public string FullName { get; set; } = string.Empty;
-        public string Department { get; set; } = string.Empty;
-        public string Position { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string PersonnelNumber { get; set; } = string.Empty;
-    }
-
-    /// <summary>
     /// Data transfer object for new employee creation with property change notifications
     /// </summary>
     public class NewEmployeeDto : INotifyPropertyChanged
