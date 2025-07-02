@@ -146,7 +146,84 @@ namespace Kotova.CommonClasses
 
         // Data from Трансэлектропроект DataBase
         public TransElectroEmployeeDto TransElectroData { get; set; }
+
+        // NEW: Color coding properties
+        /// <summary>
+        /// Color for the row display in UI
+        /// Values: "Red", "Green", "Blue", "Yellow"
+        /// </summary>
+        public string RowColor { get; set; }
+
+        /// <summary>
+        /// Human-readable status message explaining the color
+        /// </summary>
+        public string StatusMessage { get; set; }
+
+        /// <summary>
+        /// Helper property to get differences as a readable string
+        /// </summary>
+        public string DifferenceFieldsString
+        {
+            get
+            {
+                if (DifferenceFields == null || !DifferenceFields.Any())
+                    return string.Empty;
+                return string.Join(", ", DifferenceFields);
+            }
+        }
+
+        /// <summary>
+        /// Helper property to determine the color based on the logic:
+        /// - Red: Has differences between databases
+        /// - Green: No differences - data is identical
+        /// - Blue: Exists only in Lynks database
+        /// - Yellow: Exists only in TransElectro database (shouldn't happen)
+        /// </summary>
+        public string GetColorCode()
+        {
+            if (!string.IsNullOrEmpty(RowColor))
+                return RowColor;
+
+            // Fallback logic if RowColor is not set
+            if (LynksData != null && TransElectroData != null)
+            {
+                // Both exist
+                return HasDifferences ? "Red" : "Green";
+            }
+            else if (LynksData != null && TransElectroData == null)
+            {
+                // Only in Lynks
+                return "Blue";
+            }
+            else if (LynksData == null && TransElectroData != null)
+            {
+                // Only in TransElectro
+                return "Yellow";
+            }
+
+            return "Gray"; // Default/unknown state
+        }
+
+        /// <summary>
+        /// Helper property to get status message based on color
+        /// </summary>
+        public string GetStatusMessage()
+        {
+            if (!string.IsNullOrEmpty(StatusMessage))
+                return StatusMessage;
+
+            // Fallback logic if StatusMessage is not set
+            return GetColorCode() switch
+            {
+                "Red" => "Есть различия в данных",
+                "Green" => "Данные идентичны",
+                "Blue" => "Есть только в базе Lynks",
+                "Yellow" => "Так не должно было быть - есть только в базе TransElectro",
+                _ => "Неизвестный статус"
+            };
+        }
     }
+
     public class TransElectroEmployeeDto
     {
         public string FullName { get; set; }
