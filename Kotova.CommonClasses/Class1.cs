@@ -339,7 +339,45 @@ namespace Kotova.CommonClasses
         public DateTime? DateAssigned { get; set; }
     }
 
+    #region DTOs for Data Download
 
+    /// <summary>
+    /// DTO for department data download
+    /// </summary>
+    public class DepartmentDownloadDto
+    {
+        [Required]
+        public int DepartmentId { get; set; }
+
+        [Required]
+        [StringLength(255)]
+        public string DepartmentName { get; set; } = string.Empty;
+
+        public bool IsChiefOnline { get; set; }
+
+        public DateTime? LastOnlineSetUTC { get; set; }
+
+        public byte CodeNumberTelpDb { get; set; }
+    }
+
+    /// <summary>
+    /// DTO for role data download
+    /// </summary>
+    public class RoleDownloadDto
+    {
+        [Required]
+        public int RoleId { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string RoleType { get; set; } = string.Empty;
+
+        [Required]
+        [StringLength(100)]
+        public string RoleNameRussian { get; set; } = string.Empty;
+    }
+
+    #endregion
 
     // Add these new DTOs to the existing CommonClasses/Class1.cs file
     // These should be added at the end of the file, before the closing namespace brace
