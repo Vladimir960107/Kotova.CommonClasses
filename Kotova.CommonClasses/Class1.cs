@@ -379,6 +379,52 @@ namespace Kotova.CommonClasses
 
     #endregion
 
+    #region Response DTOs
+
+    /// <summary>
+    /// Response model for departments and roles combined endpoint
+    /// </summary>
+    public class DepartmentsAndRolesResponse
+    {
+        [JsonProperty("success")]
+        public bool Success { get; set; }
+
+        [JsonProperty("departments")]
+        public DepartmentsData? Departments { get; set; }
+
+        [JsonProperty("roles")]
+        public RolesData? Roles { get; set; }
+
+        [JsonProperty("timestamp")]
+        public DateTime Timestamp { get; set; }
+    }
+
+    /// <summary>
+    /// Container for departments data in combined response
+    /// </summary>
+    public class DepartmentsData
+    {
+        [JsonProperty("count")]
+        public int Count { get; set; }
+
+        [JsonProperty("data")]
+        public List<DepartmentDownloadDto>? Data { get; set; }
+    }
+
+    /// <summary>
+    /// Container for roles data in combined response
+    /// </summary>
+    public class RolesData
+    {
+        [JsonProperty("count")]
+        public int Count { get; set; }
+
+        [JsonProperty("data")]
+        public List<RoleDownloadDto>? Data { get; set; }
+    }
+
+    #endregion
+
     // Add these new DTOs to the existing CommonClasses/Class1.cs file
     // These should be added at the end of the file, before the closing namespace brace
 
