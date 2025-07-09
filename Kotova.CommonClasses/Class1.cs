@@ -931,7 +931,6 @@ namespace Kotova.CommonClasses
         public Byte? gender { get; set; }
         public bool is_driver { get; set; }
         public bool? is_working_in_department { get; set; }
-
     }
 
     public class Department
@@ -1047,6 +1046,43 @@ namespace Kotova.CommonClasses
         /// The type of instruction (0=Introductory, 1=Unplanned, 2=Primary, etc.)
         /// </summary>
         public byte TypeOfInstruction { get; set; }
+    }
+
+    public class EmployeeCreationDto
+    {
+        public string PersonnelNumber { get; set; }
+        public string FullName { get; set; }
+        public string JobPosition { get; set; }
+        public string Department { get; set; }
+        public string Role { get; set; }
+        public string? Email { get; set; }
+        public string? WorkplaceNumber { get; set; }
+        public string? Group { get; set; }
+        public DateTime BirthDate { get; set; }
+        public byte? Gender { get; set; } = 3;
+        public bool IsDriver { get; set; } = false;
+        public bool? IsWorkingInDepartment { get; set; } = true;
+    }
+
+    public class EmployeeCreationResponseDto
+    {
+        public bool Success { get; set; }
+        public string Message { get; set; }
+        public int? PersonnelId { get; set; }
+        public string PersonnelNumber { get; set; }
+        public string FullName { get; set; }
+        public string Department { get; set; }
+        public bool InitialInstructionCreated { get; set; }
+        public UserCredentialsInfo? UserCredentials { get; set; }
+    }
+
+    public class UserCredentialsInfo
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public int UserId { get; set; }
+        public string Email { get; set; }
+        public string DeskNumber { get; set; }
     }
 
     #region Encryption
