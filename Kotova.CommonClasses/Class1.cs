@@ -879,6 +879,26 @@ namespace Kotova.CommonClasses
 
     }
 
+    public class EmployeeCreationResponse
+    {
+        public string Message { get; set; }
+        public int PersonnelId { get; set; }
+        public string PersonnelNumber { get; set; }
+        public string FullName { get; set; }
+        public string Department { get; set; }
+        public bool InitialInstructionCreated { get; set; }
+        public UserCredentialsResult UserCredentials { get; set; }
+    }
+
+    public class UserCredentialsResult
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public int UserId { get; set; }
+        public string DeskNumber { get; set; }
+        public bool Success { get; set; }
+    }
+
     public class TaskDto
     {
         public int TaskId { get; set; }
