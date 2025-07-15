@@ -1104,6 +1104,9 @@ namespace Kotova.CommonClasses
         public string Email { get; set; }
         public string DeskNumber { get; set; }
     }
+    #region Employee Sync bitween Databases DTO
+
+    #endregion
 
     #region Encryption
     public class Encryption_Kotova
