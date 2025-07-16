@@ -671,21 +671,17 @@ namespace Kotova.CommonClasses
     public class InstructionForChiefDto
     {
         public int InstructionId { get; set; }
+        public string CauseOfInstruction { get; set; }
         public DateTime BeginDate { get; set; }
         public DateTime EndDate { get; set; }
-        public string CauseOfInstruction { get; set; }
-        public string TypeOfInstruction { get; set; }
+        public byte TypeOfInstruction { get; set; }
+        public string TypeName { get; set; }
+        public bool IsAssignedToPeople { get; set; }
         public bool IsPassedByEveryone { get; set; }
-        public double PassedPercentage { get; set; }
         public List<PersonStatusDto> Persons { get; set; } = new List<PersonStatusDto>();
 
-        // Helper property to get total count of people
         public int TotalPeopleCount => Persons?.Count ?? 0;
-
-        // Helper property to get count of people who have passed
         public int PassedPeopleCount => Persons?.Count(p => p.Passed) ?? 0;
-
-        // Helper property to get completion percentage
         public int CompletionPercentage => TotalPeopleCount > 0
             ? (int)((PassedPeopleCount / (double)TotalPeopleCount) * 100)
             : 0;
@@ -1107,6 +1103,8 @@ namespace Kotova.CommonClasses
     #region Employee Sync bitween Databases DTO
 
     #endregion
+
+
 
     #region Encryption
     public class Encryption_Kotova
